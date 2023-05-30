@@ -12,6 +12,7 @@ export default {
         config: '',
       },
 
+      printers: null,
       printer: null,
 
       fileName: 'filename',
@@ -22,19 +23,38 @@ export default {
         title: '',
         excerpt: '',
         featured_media: '',
+        features: [],
+        config: {},
       },
     };
   },
   beforeMount() {
     this.getParams();
     this.getPrinter();
+    this.getPrintersAjax();
   },
   methods: {
+    // Здесь я начал писать функционал для быстрой смены принтера находясь на сайте генератора
+    // Это для того, чтобы менеджер мог напрямую зайти на генератор и выбрать нужный принтер, конфиг и сделать пдф
+    // Вообще думаю стоит развивать именно этот пользовательский сценарий.
+    // Думаю нужно добавить pinia и загружать туда все сразу при загрузке приложения, а потом забирать то что нужно.
+    // Хранение в сторе позволит один раз все получить и потом уже менеджер спокойно будет выбирать конфиги и принтеры.
+    async getPrintersAjax() {
+      var data = await WPApi.getPosts('printers');
+      this.printers = data;
+      console.log(this.printers);
+    },
+
+    // Если менеджер приходит в генератор с основного сайта с выбранными там параметрами
+    // то мы их ищем в url и потом уже выполняет подгрузку необходимых данных
     getParams() {
       this.request.printer = GetParams.getParam('printer') ? GetParams.getParam('printer') : null;
       this.request.config = GetParams.getParam('config') ? GetParams.getParam('config') : null;
     },
 
+    // Получив данные запроса из url (id принтера и номер конфига)
+    // подгружаем данные о конкретном принетере по его id
+    // далее сразу вытаскиваем название, описание, картинку и так далее
     async getPrinter() {
       var data = await WPApi.getPrinter(this.request.printer);
       this.printer = data;
@@ -44,6 +64,17 @@ export default {
       this.pdf_content.title = this.printer.title.rendered;
       this.pdf_content.excerpt = this.printer.excerpt.rendered;
       this.pdf_content.featured_media = this.printer._embedded['wp:featuredmedia'][0].source_url;
+
+      // Забираем данные о features
+      // features это посты, они переданы в виде id
+      // поэтому нам нужно каждый подгрузить через апи
+      this.pdf_content.features = [];
+
+      // Забираем данные о выбранном конфиге
+      // Конфиг мы получаем по индексу (индекс берем из url параметра)
+      // Вся информация о конфигах хранится в data принтера,
+      // тоесть делать дополнительных запросов не нужно, только забрать нужный конфиг
+      this.pdf_content.config = this.printer.acf.configurations[this.request.config];
     },
 
     savePDF() {
@@ -78,18 +109,26 @@ export default {
 </script>
 
 <template>
-  <div>
-    <div>
-      <div v-if="printer">
-        <p>{{ pdf_content.title }}</p>
-        <p v-html="pdf_content.excerpt"></p>
-        <p>{{ pdf_content.featured_media }}</p>
-      </div>
-      <div v-if="request.config">
-        <p>Requested config: {{ request.config }}</p>
-      </div>
-    </div>
+  <select name="printers" id="printers" v-if="printers">
+    <option value="Select printer" selected>Select Printer</option>
+    <option :value="printer.ID" v-for="(printer, i) in printers" :key="i">{{ printer.post_title }}</option>
+  </select>
+
+  <hr />
+
+  <div v-if="printer">
+    <p>Title: {{ pdf_content.title }}</p>
+    <p>Media: {{ pdf_content.featured_media }}</p>
+    <p>Features: {{ pdf_content.features }}</p>
+    <p>Config: {{ pdf_content.config }}</p>
+    <p>
+      <span>Description:</span>
+      <span v-html="pdf_content.excerpt"></span>
+    </p>
   </div>
+
+  <hr />
+
   <button @click="savePDF">Save PDF</button>
 </template>
 
