@@ -13,6 +13,15 @@ export default class WPApi {
       });
   }
 
+  static async getPrinters() {
+    return await axios.get('https://cmykengineering.com/wp-json/wp/v2/printers/?_embed')
+      .then(response => {
+        console.log('response: ', response)
+        console.log('response data: ', response.data)
+        return response.data
+      }).catch(error => console.log(error))
+  }
+
   static async getPosts(postType) {
     var params = new URLSearchParams();
     params.append('action', 'cmyk_ajax_get_posts');
