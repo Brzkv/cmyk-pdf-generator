@@ -20,8 +20,9 @@ async function generate() {
 
   // 3. Конвертация всех страниц из html в pdf
   doc.html(document.querySelector('.pages'), {
-    width: 210,
-    windowWidth: 595,
+    width: 190,
+    windowWidth: 800,
+    margin: 10,
     html2canvas: {
       letterRendering: true,
     },

@@ -6,7 +6,13 @@ const props = defineProps({
 
 <template>
   <div class="image-wrapper bg-light mb-8">
-    <img loading="lazy" crossorigin="anonymous" class="printer-image" :src="'src/assets/' + props.id + '.png'" alt="" />
+    <img
+      loading="lazy"
+      crossorigin="anonymous"
+      class="printer-image"
+      :src="'../src/assets/' + props.id + '.png'"
+      alt=""
+    />
   </div>
 </template>
 

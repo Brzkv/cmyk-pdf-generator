@@ -1,7 +1,7 @@
 <script setup></script>
 
 <template>
-  <div class="row fs-5 lh-7 column-gap-6 flex-grow">
+  <div class="row footer column-gap-6 flex-grow">
     <div class="col-7 v-stack justify-between">
       <ol>
         <li class="grey">
@@ -67,4 +67,9 @@
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.footer {
+  font-size: 50%;
+  line-height: 130%;
+}
+</style>

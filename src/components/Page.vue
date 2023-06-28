@@ -11,11 +11,11 @@
   display: flex;
   flex-direction: column;
   position: relative;
-  aspect-ratio: 595 / 841 !important;
-  width: 595px;
-  height: 841px;
-  background: white;
+  aspect-ratio: 540 / 785 !important;
+  height: 100%;
+  width: 800px;
+  margin: 0 auto;
   overflow: hidden;
-  padding: 12px;
+  border: 1px solid var(--border);
 }
 </style>

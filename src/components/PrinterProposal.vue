@@ -7,7 +7,7 @@
       <!-- Overview -->
       <div class="v-stack row-gap-12 border-black border-top border-bottom py-8 mb-8">
         <div class="row">
-          <div class="col-9 v-stack">
+          <div class="col-9 v-stack unbounded">
             <span class="fs-20 lh-24 fw-bold">The SOVA {{ printerStore.selected_printer.title.rendered }}</span>
             <span class="fs-20 lh-24 fw-normal">{{ printerStore.selected_config.configuration }}</span>
           </div>
@@ -71,6 +71,9 @@ const printerStore = usePrinterStore();
 printerStore.loadPrinters();
 printerStore.setPrinter(705);
 printerStore.setConfig(0);
+
+document.title =
+  'The SOVA ' + printerStore.selected_printer.title.rendered + ' ' + printerStore.selected_config.configuration;
 </script>
 
 <style scoped></style>
