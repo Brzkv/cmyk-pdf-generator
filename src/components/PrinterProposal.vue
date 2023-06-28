@@ -24,7 +24,7 @@
             <TextBlock title="Overview" :text="printerStore.selected_printer.acf.full_description" />
             <div class="v-stack justify-end flex-grow row-gap-8">
               <div class="grey fs-8 lh-12">Powered by LIPLA Inks<br />& Kyocera Printheads</div>
-              <img src="src/assets/lipla-kyocera.png" width="98" />
+              <img src="../assets/lipla-kyocera.png" width="98" />
             </div>
           </div>
           <div class="col-5">

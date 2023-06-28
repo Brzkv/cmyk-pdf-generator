@@ -32,7 +32,7 @@
         </li>
       </ol>
       <div>
-        <img src="src/assets/cmyk_logo.png" height="10" alt="" />
+        <img src="../assets/cmyk_logo.png" height="10" alt="" />
       </div>
     </div>
     <div class="col-5">

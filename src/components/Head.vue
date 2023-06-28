@@ -17,7 +17,7 @@ function today() {
         <div class="col-6">
           <div class="manager">
             <div class="photo">
-              <img src="src/assets/kirill.png" width="32" height="32" alt="" />
+              <img src="../assets/kirill.png" width="32" height="32" alt="" />
             </div>
             <div class="v-stack fs-6 lh-8">
               <span>CEO</span>
@@ -31,7 +31,7 @@ function today() {
         <div class="col-6">
           <div class="manager">
             <div class="photo">
-              <img src="src/assets/david.png" width="32" height="32" alt="" />
+              <img src="../assets/david.png" width="32" height="32" alt="" />
             </div>
             <div class="v-stack fs-6 lh-8">
               <span>VPO</span>
