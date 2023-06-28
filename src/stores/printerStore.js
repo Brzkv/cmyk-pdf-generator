@@ -26,14 +26,14 @@ export const usePrinterStore = defineStore({
 
     },
     async loadPrinters() {
-      this.printers = await WPApi.getPrinters();
-      // if (sessionStorage.getItem('printers')) {
-      //   this.printers = JSON.parse(sessionStorage.getItem('printers'));
-      //   console.log('Printers loaded from sessionStorage')
-      // } else {
-      //   sessionStorage.setItem('printers', JSON.stringify(this.printers));
-      //   console.log('Printers loaded from API')
-      // }
+      if (sessionStorage.getItem('printers')) {
+        this.printers = JSON.parse(sessionStorage.getItem('printers'));
+        console.log('Printers loaded from sessionStorage')
+      } else {
+        this.printers = await WPApi.getPrinters();
+        sessionStorage.setItem('printers', JSON.stringify(this.printers));
+        console.log('Printers loaded from API')
+      }
     }
   }
 })
